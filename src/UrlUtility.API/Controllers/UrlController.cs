@@ -29,7 +29,7 @@ namespace UrlUtility.API.Controllers
 
             var dtos = dbItems.Select(i => new UrlDto
             {
-                Identifier = i.UrlIdentifier,
+                Identifier = i.Id,
                 PageUrl = i.PageUrl
             });
 
@@ -73,7 +73,7 @@ namespace UrlUtility.API.Controllers
 
             await _repo.Add(entityModel);
 
-            return Ok(entityModel.UrlIdentifier);
+            return Ok(entityModel.Id);
         }
 
         [HttpPost("Save")]
@@ -92,7 +92,7 @@ namespace UrlUtility.API.Controllers
 
             await _repo.Add(entityModel);
 
-            return Ok(entityModel.UrlIdentifier);
+            return Ok(entityModel.Id);
         }
     }
 }

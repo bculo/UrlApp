@@ -15,7 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\Culix\.nuget\packages\microsoft.azure.cosmos\3.27.0\contentFiles\any\netstandard2.0\ThirdPartyNotice.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Hashids.net" Version="1.5.0" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.27.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.11.1" />
     <PackageReference Include="MongoDB.Driver" Version="2.15.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />

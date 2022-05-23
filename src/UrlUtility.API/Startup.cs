@@ -5,8 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using UrlUtility.API.Interfaces;
-using UrlUtility.API.Options;
-using UrlUtility.API.Repository.Mongo;
+using UrlUtility.API.Repository.Cosmo;
+using UrlUtility.API.Resolvers;
 using UrlUtility.API.Services;
 
 namespace UrlUtility.API
@@ -23,11 +23,13 @@ namespace UrlUtility.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<MongoDbOptions>(Configuration.GetSection(nameof(MongoDbOptions)));
-            services.AddSingleton<IUrlRepository, MongoUrlRepository>();
-            MongoConfiguration.InitializeMongoMapping();
+            //services.Configure<MongoDbOptions>(Configuration.GetSection(nameof(MongoDbOptions)));
+            //services.AddSingleton<IUrlRepository, MongoUrlRepository>();
+            //MongoConfiguration.InitializeMongoMapping();
 
-            services.AddScoped<ITime, Time>();
+            services.AddSingleton<IUrlRepository>(CosmoConfiguration.InitializeCosmosClientInstanceAsync(Configuration).GetAwaiter().GetResult());
+
+            services.AddScoped<ITime, TimeService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -45,7 +47,7 @@ namespace UrlUtility.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shortener.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UrlUtility.API v1"));
             }
 
             app.UseRouting();

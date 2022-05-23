@@ -36,7 +36,7 @@ namespace UrlUtility.API.Repository.Mongo
 
         public async Task<Url> GetUrl(string urlIdentifier)
         {
-            return await _urlCollection.Find(item => item.UrlIdentifier == urlIdentifier)
+            return await _urlCollection.Find(item => item.Id == urlIdentifier)
                 .SingleOrDefaultAsync();
         }
     }
