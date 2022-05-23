@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+
+  mongourldb:
+    container_name: mongourldb
+    image: mongo:latest
+
+volumes:
+  mongourlstore:

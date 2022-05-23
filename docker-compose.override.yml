@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+
+  mongourldb:
+    ports:
+      - 27017:27017
+    volumes:
+      - mongourlstore:/data/db
