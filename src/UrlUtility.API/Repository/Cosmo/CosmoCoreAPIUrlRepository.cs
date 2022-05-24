@@ -9,19 +9,22 @@ using UrlUtility.API.Interfaces;
 
 namespace UrlUtility.API.Repository.Cosmo
 {
-    public class CosmoUrlRepository : IUrlRepository
+    /// <summary>
+    /// Repository implementation using Core API SQL
+    /// </summary>
+    public class CosmoCoreAPIUrlRepository : IUrlRepository
     {
         private readonly Container _container;
 
-        public CosmoUrlRepository(CosmosClient client, string databaseName, string containerName)
+        public CosmoCoreAPIUrlRepository(CosmosClient client, string databaseName, string containerName)
         {
             _container = client.GetContainer(databaseName, containerName);
         }
 
         public async Task Add(Url url)
         {
-            url.Id = Guid.NewGuid().ToString();
-            await _container.CreateItemAsync(url, new PartitionKey(url.Id));
+            url.Id = url.PartitionKey = Guid.NewGuid().ToString();
+            await _container.CreateItemAsync(url, new PartitionKey(url.PartitionKey));
         }
 
         public async Task<List<Url>> GetAll()

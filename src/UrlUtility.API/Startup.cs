@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using UrlUtility.API.Interfaces;
 using UrlUtility.API.Repository.Cosmo;
-using UrlUtility.API.Resolvers;
 using UrlUtility.API.Services;
 
 namespace UrlUtility.API
@@ -23,11 +23,21 @@ namespace UrlUtility.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Mongo DB and Cosmo DB using Mongo DB API
             //services.Configure<MongoDbOptions>(Configuration.GetSection(nameof(MongoDbOptions)));
             //services.AddSingleton<IUrlRepository, MongoUrlRepository>();
             //MongoConfiguration.InitializeMongoMapping();
 
+            //Cosmo DB Core (SQL) API
             services.AddSingleton<IUrlRepository>(CosmoConfiguration.InitializeCosmosClientInstanceAsync(Configuration).GetAwaiter().GetResult());
+
+            //Cosmo DB entityframewrok
+            //services.AddDbContext<UrlDbContext>(opt =>
+            //{
+            //    opt.UseCosmos(Configuration["Cosmo:ConnectionString"], Configuration["Cosmo:DatabaseName"]);
+            //});
+            //services.AddScoped<IUrlRepository, CosmoEntityUrlRepository>();
+
 
             services.AddScoped<ITime, TimeService>();
 

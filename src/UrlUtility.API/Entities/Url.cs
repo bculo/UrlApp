@@ -7,6 +7,7 @@ namespace UrlUtility.API.Entities
     {
         public string Id { get; set; }
         public string PageUrl { get; set; }
+        public string PartitionKey { get; set; }
         public DateTime CreatedOn { get; set; }
     }
 }

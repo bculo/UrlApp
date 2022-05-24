@@ -9,7 +9,7 @@ namespace UrlUtility.API.Repository.Cosmo
 {
     public static class CosmoConfiguration
     {
-        public static async Task<CosmoUrlRepository> InitializeCosmosClientInstanceAsync(IConfiguration config)
+        public static async Task<CosmoCoreAPIUrlRepository> InitializeCosmosClientInstanceAsync(IConfiguration config)
         {
             string connection = config.GetValue<string>("Cosmo:ConnectionString");
             string databaseName = config.GetValue<string>("Cosmo:DatabaseName");
@@ -23,11 +23,11 @@ namespace UrlUtility.API.Repository.Cosmo
                }
             });
 
-            var urlRepo = new CosmoUrlRepository(client, databaseName, containerName);
+            var urlRepo = new CosmoCoreAPIUrlRepository(client, databaseName, containerName);
 
             DatabaseResponse database = await client.CreateDatabaseIfNotExistsAsync(databaseName);
 
-            await database.Database.CreateContainerIfNotExistsAsync(containerName, "/id");
+            await database.Database.CreateContainerIfNotExistsAsync(containerName, "/partitionKey");
 
             return urlRepo;
         }
