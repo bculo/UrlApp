@@ -16,7 +16,7 @@ namespace UrlUtility.API.Repository.Cosmo
         public static async Task SeedData(IServiceProvider provider)
         {
             using var scope = provider.CreateScope();
-            using var dbContext = scope.ServiceProvider.GetRequiredService<UrlDbContext>();
+            using var dbContext = scope.ServiceProvider.GetRequiredService<NoSqlUrlDbContext>();
 
             await dbContext.Database.EnsureCreatedAsync(); 
         }

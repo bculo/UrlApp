@@ -7,11 +7,11 @@ using UrlUtility.API.Entities;
 
 namespace UrlUtility.API.Repository.Cosmo
 {
-    public class UrlDbContext : DbContext
+    public class NoSqlUrlDbContext : DbContext
     {
         public DbSet<Url> Urls { get; set; }
 
-        public UrlDbContext(DbContextOptions<UrlDbContext> options) : base(options)
+        public NoSqlUrlDbContext(DbContextOptions<NoSqlUrlDbContext> options) : base(options)
         {
             
         }

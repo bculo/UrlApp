@@ -10,9 +10,9 @@ namespace UrlUtility.API.Repository.Cosmo
 {
     public class CosmoEntityUrlRepository : IUrlRepository
     {
-        private readonly UrlDbContext _context;
+        private readonly NoSqlUrlDbContext _context;
 
-        public CosmoEntityUrlRepository(UrlDbContext context)
+        public CosmoEntityUrlRepository(NoSqlUrlDbContext context)
         {
             _context = context;
         }

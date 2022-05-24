@@ -1,3 +1,4 @@
+using HashidsNet;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using UrlUtility.API.Interfaces;
 using UrlUtility.API.Repository.Cosmo;
+using UrlUtility.API.Repository.Sql;
+using UrlUtility.API.Repository.Sql.Repositories;
 using UrlUtility.API.Services;
 
 namespace UrlUtility.API
@@ -38,8 +41,15 @@ namespace UrlUtility.API
             //});
             //services.AddScoped<IUrlRepository, CosmoEntityUrlRepository>();
 
+            //Sql server configuration
+            services.AddDbContext<SqlUrlDbContext>(opt =>
+            {
+                opt.UseSqlServer(Configuration["SqlServer:ConnectionString"]);
+            });
+            services.AddScoped<IShortUrlRepository, ShortUrlRepository>();
 
             services.AddScoped<ITime, TimeService>();
+            services.AddScoped<IHashids>(_ => new Hashids(Configuration["HashIds:Salt"], Configuration.GetValue<int>("HashIds:Lenght")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

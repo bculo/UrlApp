@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HashidsNet;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,19 +14,23 @@ namespace UrlUtility.API.Controllers
     [Route("[controller]")]
     public class UrlController : ControllerBase
     {
-        private readonly IUrlRepository _repo;
+        private readonly IUrlRepository _urlRepo;
+        private readonly IShortUrlRepository _shorUrlRepo;
+        private readonly IHashids _hash;
         private readonly ITime _time;
 
-        public UrlController(IUrlRepository repo, ITime time)
+        public UrlController(IUrlRepository repo, ITime time, IShortUrlRepository shortRepo, IHashids hash)
         {
-            _repo = repo;
+            _urlRepo = repo;
             _time = time;
+            _shorUrlRepo = shortRepo;
+            _hash = hash;
         }
     
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var dbItems = await _repo.GetAll();
+            var dbItems = await _urlRepo.GetAll();
 
             var dtos = dbItems.Select(i => new UrlDto
             {
@@ -44,7 +49,7 @@ namespace UrlUtility.API.Controllers
                 return BadRequest();
             }
 
-            var urlItem = await _repo.GetUrl(urlTicket);
+            var urlItem = await _urlRepo.GetUrl(urlTicket);
 
             if (urlItem is null)
             {
@@ -71,7 +76,7 @@ namespace UrlUtility.API.Controllers
                 CreatedOn = _time.DateTime
             };
 
-            await _repo.Add(entityModel);
+            await _urlRepo.Add(entityModel);
 
             return Ok(entityModel.Id);
         }
@@ -90,9 +95,44 @@ namespace UrlUtility.API.Controllers
                 CreatedOn = _time.DateTime
             };
 
-            await _repo.Add(entityModel);
+            await _urlRepo.Add(entityModel);
 
             return Ok(entityModel.Id);
+        }
+
+        [HttpPost("Short")]
+        public async Task<IActionResult> ShortUrl([FromBody] SaveUrlDto request)
+        {
+            if (string.IsNullOrEmpty(request.PageUrl))
+            {
+                return BadRequest();
+            }
+
+            var entityModel = new ShortUrl
+            {
+                PageUrl = request.PageUrl,
+            };
+
+            await _shorUrlRepo.Add(entityModel);
+
+            var hashedId = _hash.EncodeLong(entityModel.Id);
+
+            return Ok(hashedId);
+        }
+
+        [HttpGet("Short/{identifier}")]
+        public async Task<IActionResult> FetchShortUrl(string identifier)
+        {
+            if (string.IsNullOrEmpty(identifier))
+            {
+                return BadRequest();
+            }
+
+            long[] ids = _hash.DecodeLong(identifier);
+
+            var model = await _shorUrlRepo.GetUrl(ids.First());
+
+            return Ok(model.PageUrl);
         }
     }
 }

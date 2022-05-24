@@ -1,6 +1,6 @@
 ﻿namespace UrlUtility.API.Dtos
 {
-    public class UrlRedirectDto
+    public class UrlFetchDto
     {
         public string UrlIdentifier { get; set; }
     }

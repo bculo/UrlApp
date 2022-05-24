@@ -3,9 +3,8 @@ using System;
 
 namespace UrlUtility.API.Entities
 {
-    public class Url
+    public class Url : Entity<string>
     {
-        public string Id { get; set; }
         public string PageUrl { get; set; }
         public string PartitionKey { get; set; }
         public DateTime CreatedOn { get; set; }

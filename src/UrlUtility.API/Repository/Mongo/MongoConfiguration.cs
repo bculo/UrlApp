@@ -14,7 +14,7 @@ namespace UrlUtility.API.Repository.Mongo
             {
                 options.SetIgnoreExtraElements(true);
                 options.MapMember(member => member.PageUrl).SetElementName("pageUrl");
-                options.MapMember(member => member.CreatedOn).SetElementName("createdOn"); ;
+                options.MapMember(member => member.CreatedOn).SetElementName("createdOn");
                 options.MapIdMember(member => member.Id).SetIdGenerator(StringObjectIdGenerator.Instance);
                 options.IdMemberMap.SetSerializer(new StringSerializer(BsonType.ObjectId));
             });
