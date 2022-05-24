@@ -9,6 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UrlUtility.API", "src\UrlUt
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{8724DCD5-837E-4324-93BA-363F9E1D435A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SqlScripts", "SqlScripts", "{5538F331-E02B-4CE7-A018-330B5DA811B4}"
+	ProjectSection(SolutionItems) = preProject
+		migration.sql = migration.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{75384BF0-29D5-4C33-B54A-AEDD63417A19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlUtility.API.Test", "test\UrlUtility.API.Test\UrlUtility.API.Test.csproj", "{5D00DDC9-3427-4421-9849-DA140D8A3601}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +32,18 @@ Global
 		{8724DCD5-837E-4324-93BA-363F9E1D435A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8724DCD5-837E-4324-93BA-363F9E1D435A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8724DCD5-837E-4324-93BA-363F9E1D435A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D00DDC9-3427-4421-9849-DA140D8A3601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D00DDC9-3427-4421-9849-DA140D8A3601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D00DDC9-3427-4421-9849-DA140D8A3601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D00DDC9-3427-4421-9849-DA140D8A3601}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D2FECFE1-2349-4D22-A874-69731BACB5E5} = {6018DCC8-E982-4649-9072-FCFFB57F6D4B}
+		{5538F331-E02B-4CE7-A018-330B5DA811B4} = {6018DCC8-E982-4649-9072-FCFFB57F6D4B}
+		{5D00DDC9-3427-4421-9849-DA140D8A3601} = {75384BF0-29D5-4C33-B54A-AEDD63417A19}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CACBB862-5522-4046-9883-EFC913F3CB3B}
