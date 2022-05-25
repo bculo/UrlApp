@@ -7,8 +7,12 @@ using UrlUtility.API.Entities;
 
 namespace UrlUtility.API.Repository.Sql
 {
+    /// <summary>
+    /// DbContext for SQL server
+    /// </summary>
     public class SqlUrlDbContext : DbContext
     {
+
         public SqlUrlDbContext(DbContextOptions<SqlUrlDbContext> options) : base(options) { }
 
         public DbSet<ShortUrl> ShortUrls { get; set; }
