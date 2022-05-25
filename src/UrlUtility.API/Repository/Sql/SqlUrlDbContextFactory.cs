@@ -16,6 +16,7 @@ namespace UrlUtility.API.Repository.Sql
                 .AddJsonFile("appsettings.Development.json", false)
                 .Build();
 
+
             string connectionString = configuration["SqlServer:ConnectionString"];
 
             DbContextOptionsBuilder<SqlUrlDbContext> optionsBuilder = new DbContextOptionsBuilder<SqlUrlDbContext>();
