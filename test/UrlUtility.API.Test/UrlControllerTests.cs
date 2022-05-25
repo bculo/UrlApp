@@ -89,6 +89,5 @@ namespace UrlUtility.API.Test
             var context = new SqlUrlDbContext(dbOptions);
             return new ShortUrlRepository(context);
         }
-
     }
 }
