@@ -12,7 +12,6 @@ namespace UrlUtility.API.Repository.Sql
     /// </summary>
     public class SqlUrlDbContext : DbContext
     {
-
         public SqlUrlDbContext(DbContextOptions<SqlUrlDbContext> options) : base(options) { }
 
         public DbSet<ShortUrl> ShortUrls { get; set; }
